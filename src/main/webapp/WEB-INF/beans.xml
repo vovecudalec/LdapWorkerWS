@@ -8,9 +8,8 @@
 
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 
-	<jaxws:endpoint 
-	  id="helloWorld" 
-	  implementor="LdapWorkerWS.HelloWorldImpl" 
+	<jaxws:endpoint
+            implementor="LdapWorkerWS.LdapWorker"
 	  address="/HelloWorld" />
 	  
 </beans>

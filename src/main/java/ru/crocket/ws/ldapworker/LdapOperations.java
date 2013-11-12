@@ -1,13 +1,14 @@
 package ru.crocket.ws.ldapworker;
+
+import com.unboundid.ldap.sdk.Attribute;
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
 import com.unboundid.ldap.sdk.LDAPResult;
+import com.unboundid.ldif.LDIFException;
 
-import javax.naming.Context;
-import javax.naming.NamingEnumeration;
-import javax.naming.NamingException;
-import javax.naming.directory.*;
-import java.util.Hashtable;
+import java.util.Collection;
+import java.util.logging.Logger;
+
 
 /**
  * Created with IntellijJ IDEA.
@@ -18,47 +19,55 @@ import java.util.Hashtable;
  */
 public class LdapOperations {
 
-    LDAPConnection connection;
+    private static LDAPConnection connection;
+    private static Logger log;
 
-    public String readLdapUsers(String cnSubstring) {
+//    public String readLdapUsers(String cnSubstring) {
+//
+//        try {
+//            SearchControls constraints = new SearchControls();
+//            constraints.setSearchScope(SearchControls.SUBTREE_SCOPE);
+//            NamingEnumeration results;
+//
+//            results = context.search(Config.getProperty("ldap.dn"), "(cn=" + cnSubstring + ")", constraints);
+//
+//            while (results != null && results.hasMore()) {
+//                SearchResult sr = (SearchResult) results.next();
+//                Attributes attributes = sr.getAttributes();
+//                System.out.println(sr.getName() + attributes.toString());
+//            }
+//        } catch (NamingException e) {
+//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//        }
+//        return "String";
+//    }
 
-        DirContext context = getDirContext(Config.getProperty("ldap.server.address"));
+    public static void writeInstance(LdapInstance instance){
 
-        try {
-            SearchControls constraints = new SearchControls();
-            constraints.setSearchScope(SearchControls.SUBTREE_SCOPE);
-            NamingEnumeration results;
-
-            results = context.search(Config.getProperty("ldap.dn"), "(cn=" + cnSubstring + ")", constraints);
-
-            while (results != null && results.hasMore()) {
-                SearchResult sr = (SearchResult) results.next();
-                Attributes attributes = sr.getAttributes();
-                System.out.println(sr.getName() + attributes.toString());
-            }
-        } catch (NamingException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        return "String";
-    }
-
-    public boolean writeInstance(Attribute[] attributes){
-        LDAPResult result = connection.add(Config.getProperty("ldap.server.address").toString(), attributes);
-    }
-
-    private DirContext getDirContext(String ldapadress) {
+        Attribute[] attributes = instance.getAttributes();
 
         try {
-            Hashtable env = new Hashtable();
-            env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-            env.put(Context.PROVIDER_URL, "ldap://" + ldapadress);
-            DirContext ctx = new InitialDirContext(env);
-            return ctx;
-        } catch (NamingException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//            LDAPResult result = connection.add((String)Config.getProperty("ldap.server.address"), String.valueOf(attributes));
+            LDAPResult ldapResult = connection.add(Config.getProperty("ldap.server.address"), attributes);
+            log.info(ldapResult.getDiagnosticMessage());
+        } catch (LDAPException e) {
+            log.warning("error: " + e.getMessage());
         }
-        return null;
     }
+
+//    private DirContext getDirContext(String ldapadress) {
+//
+//        try {
+//            Hashtable env = new Hashtable();
+//            env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+//            env.put(Context.PROVIDER_URL, "ldap://" + ldapadress);
+//            DirContext ctx = new InitialDirContext(env);
+//            return ctx;
+//        } catch (NamingException e) {
+//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//        }
+//        return null;
+//    }
 
     private String getLdapUser() {
         return "";

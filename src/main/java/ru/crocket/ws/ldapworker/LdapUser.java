@@ -1,5 +1,7 @@
 package ru.crocket.ws.ldapworker;
 
+import com.unboundid.ldap.sdk.Attribute;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Администратор
@@ -15,10 +17,10 @@ public class LdapUser extends LdapInstance {
     private String givenName;
     private String fullName;
 
-    public LdapUser(String sn, String login, String name, String givenName, String fullName) {
+    public LdapUser(String login, String name, String givenName, String fullName) {
         super.dn = Config.getProperty("ldap.dn");
         super.cn = login;
-        this.sn = sn;
+        this.sn = login;
         this.login = login;
         this.name = name;
         this.givenName = givenName;
@@ -33,5 +35,19 @@ public class LdapUser extends LdapInstance {
     @Override
     public boolean create() {
         return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Attribute[] getAttributes(){
+        Attribute[] attributes = {
+                new Attribute("dn", dn),
+                new Attribute("cn", cn),
+                new Attribute("sn", sn),
+                new Attribute("login", login),
+                new Attribute("name", name),
+                new Attribute("givenName", givenName),
+                new Attribute("fullName", fullName)
+        };
+        return attributes;
     }
 }
