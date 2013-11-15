@@ -11,6 +11,7 @@ import com.unboundid.ldap.sdk.Attribute;
  */
 public class LdapUser extends LdapInstance {
 
+
     private String sn;
     private String login;
     private String name;
@@ -29,6 +30,7 @@ public class LdapUser extends LdapInstance {
 
     @Override
     public boolean save() {
+        connection.add
         return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

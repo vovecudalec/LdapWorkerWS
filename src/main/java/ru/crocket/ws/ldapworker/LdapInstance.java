@@ -1,6 +1,7 @@
 package ru.crocket.ws.ldapworker;
 
 import com.unboundid.ldap.sdk.Attribute;
+import com.unboundid.ldap.sdk.LDAPConnection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,6 +13,7 @@ import com.unboundid.ldap.sdk.Attribute;
 public abstract class LdapInstance {
     protected String cn;
     protected String dn;
+    protected LDAPConnection connection;
     public abstract boolean save();
     public abstract boolean create();
     public abstract Attribute[] getAttributes();

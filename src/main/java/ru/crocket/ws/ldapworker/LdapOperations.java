@@ -73,16 +73,4 @@ public class LdapOperations {
         return "";
     }
 
-    private void openLdapConnection(){
-        try {
-            connection = new LDAPConnection("server.example.com", 389,
-                    "uid=john.doe,ou=People,dc=example,dc=com", "password");
-        } catch (LDAPException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-    }
-    private void closeLdapConnection() {
-
-    }
 }
