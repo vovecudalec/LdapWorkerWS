@@ -1,5 +1,7 @@
 package ru.crocket.ws.ldapworker;
 
+import com.unboundid.ldap.sdk.Attribute;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Администратор
@@ -8,4 +10,6 @@ package ru.crocket.ws.ldapworker;
  * To change this template use File | Settings | File Templates.
  */
 public interface Connections {
+    public void writeEntity(LdapEntityClass ldapEntity);
+    public void readEntity();
 }

@@ -10,15 +10,33 @@ import com.unboundid.ldap.sdk.LDAPException;
  * Time: 0:38
  * To change this template use File | Settings | File Templates.
  */
-public class ADSLdapConnection {
-    private static ADSLdapConnection instance;
+public class ADSLdapConnection implements Connections{
+//    private static LDAPConnection instance;
     private static LDAPConnection connection;
+
     private String servername;
     private Integer port;
     private String user;
     private String password;
 
-    private ADSLdapConnection() {
+
+    public void setServername(String servername) {
+        this.servername = servername;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public ADSLdapConnection() {
         try {
             connection = new LDAPConnection(servername, port, user, password);
         } catch (LDAPException e) {
@@ -26,11 +44,18 @@ public class ADSLdapConnection {
         }
     }
 
-    public static LDAPConnection getInstance() {
-        if (instance == null) {
-            new ADSLdapConnection();
-        }
-        return instance;
+    @Override
+    public void readEntity() {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
+    public void writeEntity(LdapEntityClass ldapEntity) {
+        try {
+            connection.add(ldapEntity.dn, ldapEntity.getAttributes());
+        } catch (LDAPException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

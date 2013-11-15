@@ -9,8 +9,7 @@ import com.unboundid.ldap.sdk.Attribute;
  * Time: 22:48
  * To change this template use File | Settings | File Templates.
  */
-public class LdapUser extends LdapInstance {
-
+public class LdapUser extends LdapEntityClass {
 
     private String sn;
     private String login;
@@ -26,17 +25,6 @@ public class LdapUser extends LdapInstance {
         this.name = name;
         this.givenName = givenName;
         this.fullName = fullName;
-    }
-
-    @Override
-    public boolean save() {
-        connection.add
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean create() {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

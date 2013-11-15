@@ -20,6 +20,4 @@
         <property name="password" value=""/>
     </bean>
 
-    <bean id="ldapconnector" class="ru.crocket.ws.ldapworker.ADSLdapConnection" factory-method="getInstance"/>
-
 </beans>

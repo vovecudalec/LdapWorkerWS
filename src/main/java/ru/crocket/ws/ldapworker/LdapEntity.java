@@ -10,11 +10,6 @@ import com.unboundid.ldap.sdk.LDAPConnection;
  * Time: 22:46
  * To change this template use File | Settings | File Templates.
  */
-public abstract class LdapInstance {
-    protected String cn;
-    protected String dn;
-    protected LDAPConnection connection;
-    public abstract boolean save();
-    public abstract boolean create();
+public interface LdapEntity {
     public abstract Attribute[] getAttributes();
 }
