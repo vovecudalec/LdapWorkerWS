@@ -14,10 +14,22 @@
 
 
     <bean id="connector" class="ru.crocket.ws.ldapworker.ADSLdapConnection">
-        <property name="serveradress" value="localhost"/>
-        <property name="port" value="389"/>
-        <property name="user" value=""/>
-        <property name="password" value=""/>
+        <constructor-arg name="servername" value="localhost"/>
+        <constructor-arg name="port" value="10389"/>
+        <constructor-arg name="user" value=""/>
+        <constructor-arg name="password" value=""/>
     </bean>
+
+    <bean id="ldapuser" class="ru.crocket.ws.ldapworker.LdapUser">
+        <constructor-arg name="login" value="testUser1"/>
+        <constructor-arg name="name" value="Tester"/>
+        <constructor-arg name="givenName" value="testr's GivenName"/>
+        <constructor-arg name="fullName" value="tester's FullName"/>
+    </bean>
+
+
+    <!--<bean id="service" class="LdapWorkerWS.Service" >-->
+        <!--<property name="adsLdapConnection" ref="connector"/>-->
+    <!--</bean>-->
 
 </beans>

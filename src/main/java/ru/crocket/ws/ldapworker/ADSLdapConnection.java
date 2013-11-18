@@ -14,29 +14,8 @@ public class ADSLdapConnection implements Connections{
 //    private static LDAPConnection instance;
     private static LDAPConnection connection;
 
-    private String servername;
-    private Integer port;
-    private String user;
-    private String password;
 
-
-    public void setServername(String servername) {
-        this.servername = servername;
-    }
-
-    public void setPort(Integer port) {
-        this.port = port;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public ADSLdapConnection() {
+    public ADSLdapConnection(String servername, int port, String user, String password) {
         try {
             connection = new LDAPConnection(servername, port, user, password);
         } catch (LDAPException e) {
