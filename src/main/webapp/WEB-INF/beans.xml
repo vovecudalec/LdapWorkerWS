@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:jaxws="http://cxf.apache.org/jaxws"
-       xsi:schemaLocation="
-	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+  http://www.springframework.org/schema/aop
+  http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+
+<import resource="classpath:META-INF/cxf/cxf.xml"/>
 
     <jaxws:endpoint
             implementor="LdapWorkerWS.Service"
             address="/HelloWorld"/>
-
 
     <bean id="connector" class="ru.crocket.ws.ldapworker.ADSLdapConnection">
         <property name="serveradress" value="localhost"/>
@@ -19,5 +20,16 @@
         <property name="user" value=""/>
         <property name="password" value=""/>
     </bean>
+
+    <bean id="logger" class="ru.crocket.ws.ldapworker.Logger"/>
+
+    <aop:config>
+        <aop:aspect ref="logger">
+            <aop:pointcut id="first" expression="execution(* *.createUser(..))"/>
+            <aop:before pointcut="first" method="log_before"/>
+            <aop:after pointcut="first" method="log_after"/>
+        </aop:aspect>
+
+    </aop:config>
 
 </beans>
