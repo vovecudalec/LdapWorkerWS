@@ -14,7 +14,7 @@ public class Config {
         try
         {
             properties = new Properties();
-            FileInputStream is = new FileInputStream("app.properties");
+            FileInputStream is = new FileInputStream("D:\\temp\\LdapWorkerWS\\src\\main\\resource\\app.properties");
             InputStreamReader isr = new InputStreamReader(is, "cp1251");
             properties.load(isr);
         }
@@ -30,7 +30,7 @@ public class Config {
 
     public static String getProperty(String key)
     {
-        if(properties.containsKey(key))
+        if(properties.containsValue(key))
             return properties.getProperty(key).trim();
         else return null;
     }
